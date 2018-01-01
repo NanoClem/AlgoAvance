@@ -1,0 +1,32 @@
+
+digraph G {
+
+  graph [
+    rankdir = TB;
+    bgcolor = grey50
+  ]
+
+  node [
+    fontsize = "10"
+    shape = box
+    style = "rounded, filled"
+  ]
+
+  root [
+    label = "<f0> |<f1> root |<f2> "
+    color = red
+    fillcolor = ".7 .3 1.0"
+  ]
+
+  node1 [
+    label = "<f0> |<f1> node1 |<f2> "
+  ]
+
+  node2 [
+    label = "<f0> |<f1> node2 |<f2> "
+  ]
+
+
+  "root":f0 -> "node1":f1;
+  "root":f2 -> "node2":f1;
+}
