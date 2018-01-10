@@ -63,9 +63,10 @@ void DoWordFreq(string filename, unordered_map<char, int> word_freq)
   if(ifs)
   {
     char letter;
-    while( ifs.good() )
+    while( ifs )
     {
       ifs.get(letter);      //char par char pour le moment
+      cout <<letter<<endl;
       pair<char, int> word (letter, 1);
       unordered_map<char, int>::iterator search = word_freq.find(letter);  // itérateur pour rechercher le mot passé en paramètre
 
@@ -74,9 +75,13 @@ void DoWordFreq(string filename, unordered_map<char, int> word_freq)
       else
       {
         search->second += 1;
-        cout << search->first << " : " << search->second << endl;
+        //cout << search->first << " : " << search->second << endl;
       }
+      //cout <<letter << " : " << word_freq[letter]<< endl;
     }
+    
+    word_freq[letter]-=1;
+   cout<<letter << " : " <<word_freq[letter] <<endl;
   }
   else
     throw runtime_error("ERROR : can't open file in reading mode");
@@ -89,7 +94,7 @@ int main(int argc, char * argv[])
 {
   unordered_map<char, int> freq;
   string filename = "test.txt";
-
+  
   if ( doExists(filename) )
     cerr << "Le fichier existe déjà ! \n";
   else
