@@ -39,13 +39,13 @@ void createFile(string filename)
 
 // ECRIRE LES DONNEES DANS LE FICHIER DES RESULTATS
 // il reste à mettre en paramètre les données qui doivent être écrites
-void writeFileData(string filename)
+void writeFileData(string filename, string text)
 {
   ofstream ofs;
   ofs.open(filename.c_str(), ios::out | ios::app);          // on écrit à la fin du fichier avec "app" pour éviter l'overwrite
   if(ofs)
   {
-    ofs << " \n";
+    ofs << text;
 
     ofs.close();
   }
@@ -87,7 +87,17 @@ void DoWordFreq(string filename, unordered_map<char, int> word_freq)
 //MAIN
 int main(int argc, char * argv[])
 {
-  cout << "ok \n";
+  unordered_map<char, int> freq;
+  string filename = "test.txt";
+
+  if ( doExists(filename) )
+    cerr << "Le fichier existe déjà ! \n";
+  else
+  {
+    createFile(filename);
+    writeFileData(filename, "anticonstitutionnellement");
+    DoWordFreq(filename, freq);
+  }
 
   return 0;
 }
