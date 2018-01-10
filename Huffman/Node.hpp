@@ -20,6 +20,7 @@ class Node {
     Node * left;
     Node * right;
     T nodeValue;
+    int frequence;
     inline T& getValue() const {return nodeValue;}
     inline int getNbNode() {return NbNode;}
 

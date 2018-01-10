@@ -16,13 +16,13 @@ class Tree {
 		void Insert(Node<T> *);
 		void Scan(Node<T> *);
 		inline Node<T> *Root() const {return root;}
-		Node<T> *Search(const T) const;
+		Node<T> *Search(const int) const;
 
 	public:
 		inline Tree() {root = nullptr;}
 		~Tree();
 		void Create(const T, const int);
-		void Delete(const T);
+		void Delete(const T );
 		void Viewing();
 		inline void NbrNodes() {cout << Node<T>::NbNode;}
 };
@@ -96,9 +96,9 @@ void Tree<T>::Insert(Node <T> *pNode)
 }
 
 template<class T>
-void Tree<T>::Delete(const int freq)
+void Tree<T>::Delete(const T val)
 {
-	Node<T> *pNode = Search(freq);
+	Node<T> *pNode = Search(val);
 
 	if(!pNode)
 	{
@@ -143,13 +143,13 @@ void Tree<T>::Delete(const int freq)
 
 
 template <class T>
-Node<T> *Tree<T>::Search(const int freq)const
+Node<T> *Tree<T>::Search(const T val)const
 {
 	Node<T> *current = root;
 
 	while(current)
 	{
-		if (freq < current->frequence)
+		if ( ? < current->frequence)
 			current = current->left;
 		else
 			current = current->right;
