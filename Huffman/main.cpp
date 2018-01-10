@@ -1,10 +1,11 @@
 #include "Node.hpp"
+#include "Tree.hpp"
 
 
 int main(int argc, char * argv[])
 {
   Node<char> test;
-  test.getNbNode();
+  cout << test.getNbNode() << endl;
 
   return 0;
 }

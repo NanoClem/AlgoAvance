@@ -1,24 +1,32 @@
+
+#include <stdio.h>
 #include <iostream>
 
+using namespace std;
 #include "Node.hpp"
+
+template <class T> class Node;
+
 
 template<class T>
 class Tree {
+
 	private:
-		Node <T> *root;
-		void Insert(Node <T> *);
-		void Scan(Node <T> *);
-		inline Node <T> *Root() const{return root;};
-		Node <T> *Search (const T) const;
+		Node<T> *root;
+		void Insert(Node<T> *);
+		void Scan(Node<T> *);
+		inline Node<T> *Root() const {return root;}
+		Node<T> *Search(const T) const;
 
 	public:
-		inline Tree{root = nullptr;};
+		inline Tree() {root = nullptr;}
 		~Tree();
-		void Create (const T);
-		void Delete (const T);
-		void Viewing ();
-		inline void NbrNodes(){cout << Node<T>::NbNode;};
+		void Create(const T);
+		void Delete(const T);
+		void Viewing();
+		inline void NbrNodes() {cout << Node<T>::NbNode;}
 };
+
 
 template <class T>
 void Tree<T>::Viewing()
@@ -29,8 +37,9 @@ void Tree<T>::Viewing()
 		cout <<  "L'arbre est vide" << endl;
 }
 
+
 template<class T>
-void Tree<T>Scan(Node<T> *pNode)
+void Tree<T>::Scan(Node<T> *pNode)
 {
 	if(pNode->left)
 		Scan(pNode->left);
@@ -39,8 +48,9 @@ void Tree<T>Scan(Node<T> *pNode)
 		cout << pNode->nodeValue << "/n";
 
 	if(pNode->right)
-		Scan(pNoeud->right);
+		Scan(pNode->right);
 }
+
 
 template<class T>
 void Tree<T>::Create(const T val)
@@ -54,6 +64,7 @@ void Tree<T>::Create(const T val)
 
 	Insert(pTmpNode);
 }
+
 
 template <class T>
 void Tree<T>::Insert(Node <T> *pNode)
@@ -72,7 +83,7 @@ void Tree<T>::Insert(Node <T> *pNode)
 		previous=current;
 
 		if(pNode->nodeValue < current->nodeValue)
-			courret = current->left;
+			current = current->left;
 		else
 			current = current->right;
 	}
@@ -91,14 +102,14 @@ void Tree<T>::Delete(const T val)
 	if(!pNode)
 	{
 		cout << "Recherche ratée, cette valeur ne se trouve pas dans l'arbre"<<endl;
-		return,
+		return;
 	}
 
 	Node<T> *right = pNode->right;
 	Node<T> *left = pNode->left;
 	Node<T> *current = root;
 
-	if (pNode == racine)
+	if (pNode == root)
 	{
 		root = right;
 
@@ -128,6 +139,7 @@ void Tree<T>::Delete(const T val)
 	delete pNode;
 	cout <<"Noeud effacé!"<<endl;
 }
+
 
 template <class T>
 Node<T> *Tree<T>::Search(const T val)const
