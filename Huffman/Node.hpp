@@ -6,10 +6,7 @@
 #include <iostream>
 
 using namespace std;
-template <class T> class Tree;
 
-
-template <class T>
 class Node {
   private:
     static int NbNode;                                 // Compter le nombre de noeuds instanciés
@@ -19,16 +16,16 @@ class Node {
     ~Node() {delete [] right; delete [] left;}
     Node * left;
     Node * right;
-    T nodeValue;
+    char nodeValue;
     int frequence;
-    inline T& getValue() const {return nodeValue;}
+    string code;
+    inline const char& getValue() const {return nodeValue;}
     inline int getNbNode() {return NbNode;}
 
-    friend class Tree<T>;
+    friend class Tree;
 };
 
 
-template<class T>
-int Node<T>::NbNode = 0;
+int Node::NbNode = 0;
 
 #endif

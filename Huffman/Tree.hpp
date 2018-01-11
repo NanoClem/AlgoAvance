@@ -5,31 +5,28 @@
 using namespace std;
 #include "Node.hpp"
 
-template <class T> class Node;
 
 
-template<class T>
 class Tree {
 
 	private:
-		Node<T> *root;
-		void Insert(Node<T> *);
-		void Scan(Node<T> *);
-		inline Node<T> *Root() const {return root;}
-		Node<T> *Search(const int) const;
+		Node *root;
+		void Insert(Node *);
+		void Scan(Node *);
+		inline Node *Root() const {return root;}
+		//Node *Search(const int) const;
 
 	public:
 		inline Tree() {root = nullptr;}
 		~Tree();
-		void Create(const T, const int);
-		void Delete(const T );
+		Node* Create(const char, const int);
+		void Delete(const char );
 		void Viewing();
-		inline void NbrNodes() {cout << Node<T>::NbNode;}
+		inline void NbrNodes() {cout << Node::NbNode;}
 };
 
 
-template <class T>
-void Tree<T>::Viewing()
+void Tree::Viewing()
 {
 	if(root!=nullptr)
 		Scan(root);
@@ -38,8 +35,7 @@ void Tree<T>::Viewing()
 }
 
 
-template<class T>
-void Tree<T>::Scan(Node<T> *pNode)
+void Tree::Scan(Node *pNode)
 {
 	if(pNode->left)
 		Scan(pNode->left);
@@ -52,32 +48,25 @@ void Tree<T>::Scan(Node<T> *pNode)
 }
 
 
-template<class T>
-void Tree<T>::Create(const T val, const int freq)
+Node* Tree::Create(const char val, const int freq)
 {
-	Node<T> * pTmpNode = new Node<T>;
+	Node * pTmpNode = new Node;
 
 	pTmpNode->left = nullptr;
 	pTmpNode->right = nullptr;
 
 	pTmpNode->nodeValue = val;
 	pTmpNode->frequence = freq;
-
-	Insert(pTmpNode);
+	
+	return pTmpNode;
+	
 }
 
 
-template <class T>
-void Tree<T>::Insert(Node <T> *pNode)
+void Tree::Insert(Node  *pNode)
 {
-	if(root == nullptr)
-	{
-		root=pNode;
-		return;
-	}
-
-	Node<T> * current = root;
-	Node<T> * previous = nullptr;
+	Node * current = root;
+	Node * previous = nullptr;
 
 	while(current)
 	{
@@ -95,10 +84,9 @@ void Tree<T>::Insert(Node <T> *pNode)
 		previous->right = pNode;
 }
 
-template<class T>
-void Tree<T>::Delete(const T val)
+/*void Tree::Delete(const char val)
 {
-	Node<T> *pNode = Search(val);
+	Node *pNode = Search(val);
 
 	if(!pNode)
 	{
@@ -106,9 +94,9 @@ void Tree<T>::Delete(const T val)
 		return;
 	}
 
-	Node<T> *right = pNode->right;
-	Node<T> *left = pNode->left;
-	Node<T> *current = root;
+	Node *right = pNode->right;
+	Node *left = pNode->left;
+	Node *current = root;
 
 	if (pNode == root)
 	{
@@ -142,10 +130,9 @@ void Tree<T>::Delete(const T val)
 }
 
 
-template <class T>
-Node<T> *Tree<T>::Search(const T val)const
+Node *Tree::Search(const char val)const
 {
-	Node<T> *current = root;
+	Node *current = root;
 
 	while(current)
 	{
@@ -156,4 +143,4 @@ Node<T> *Tree<T>::Search(const T val)const
 	}
 
 	return nullptr;
-}
+}*/
