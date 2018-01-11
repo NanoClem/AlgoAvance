@@ -17,7 +17,7 @@ class Tree {
 		//Node *Search(const int) const;
 
 	public:
-		inline Tree() {root = nullptr;}
+	    Tree();
 		~Tree();
 		Node* Create(const char, const int);
 		void Delete(const char );
@@ -25,6 +25,12 @@ class Tree {
 		inline void NbrNodes() {cout << Node::NbNode;}
 };
 
+Tree::Tree() 
+:root(nullptr)
+{
+	root= new Node();
+	root->frequence=0;
+}
 
 void Tree::Viewing()
 {
@@ -62,7 +68,8 @@ Node* Tree::Create(const char val, const int freq)
 	
 }
 
-
+/*Pour Insert il faut faire en sorte de la fequence du root soit égale à l'addition
+ des frequences des noeuds en entrées. */
 void Tree::Insert(Node  *pNode)
 {
 	Node * current = root;
@@ -82,6 +89,8 @@ void Tree::Insert(Node  *pNode)
 		previous->left = pNode;
 	else
 		previous->right = pNode;
+		
+	previous->frequence+=pNode->frequence;
 }
 
 /*void Tree::Delete(const char val)

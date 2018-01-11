@@ -4,6 +4,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -70,7 +71,9 @@ void DoWordFreq(string filename, unordered_map<char, int>& word_freq)
       unordered_map<char, int>::iterator search = word_freq.find(letter);  // itérateur pour rechercher le mot passé en paramètre
 
       if( search == word_freq.end() )
+      {
         word_freq.insert(word);
+	  }
       else
       {
         search->second += 1;
@@ -80,6 +83,8 @@ void DoWordFreq(string filename, unordered_map<char, int>& word_freq)
     }
     
     word_freq[letter]-=1;
+    
+    sort(word_freq.begin(), word_freq.end);
   }
   else
     throw runtime_error("ERROR : can't open file in reading mode");
@@ -100,19 +105,18 @@ int main(int argc, char * argv[])
     writeFileData(filename, "anticonstitutionnellement");
     DoWordFreq(filename, freq);
   }
-  cout << freq.size()<<endl;
   vector<Node*> nodeList (freq.size());
-  ifstream ifs(filename.c_str());
-  char letter;
   Tree * Huff = new Tree();
-  for (size_t i=1 ; i<=freq.size() ; i++)
+  for (size_t i=0 ; i<freq.size() ; i++)
   {
-	  ifs.get(letter);
+	
+	  cout << freq.at(i)<<endl;
+	  /*nodeList[i]=Huff->Tree::Create(letter, freq[letter]);
 	  
-	  nodeList[i]=Huff->Tree::Create(letter, *freq[letter]);
 	  
-	  cout << "Liste de noeud : " << nodeList.at(i) <<endl;
+	  cout << "Liste de noeud : " <<  nodeList.at(i) <<endl;*/
   }
+  
 
   return 0;
 }
