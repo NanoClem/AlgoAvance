@@ -11,6 +11,8 @@ using namespace std;
 #include "Node.hpp"
 #include "Tree.hpp"
 
+
+
 //TESTER L'EXISTENCE D'UN FICHIER
 bool doExists(string filename)
 {
@@ -39,7 +41,6 @@ void createFile(string filename)
 
 
 // ECRIRE LES DONNEES DANS LE FICHIER DES RESULTATS
-// il reste à mettre en paramètre les données qui doivent être écrites
 void writeFileData(string filename, string text)
 {
   ofstream ofs;
@@ -57,66 +58,65 @@ void writeFileData(string filename, string text)
 
 
 //LECTURE DE DONNEES DANS UN FICHIER
-//penser à remplacer les char par des string pour lire les mots à l'avenir
-void DoWordFreq(string filename, unordered_map<char, int>& word_freq)
+void DoWordFreq(string filename, unordered_map<char, int>& word_freq, string& chaine)
 {
   ifstream ifs(filename.c_str());
   if(ifs)
   {
-    char letter;
-    while( ifs )
+    char letter;                          //une lettre du mot inscrit dans le fichier txt
+    while( ifs.good() )
     {
-      ifs.get(letter);      //char par char pour le moment
-      pair<char, int> word (letter, 1);
-      unordered_map<char, int>::iterator search = word_freq.find(letter);  // itérateur pour rechercher le mot passé en paramètre
+      ifs.get(letter);                    //on récupère la lettre
+      pair<char, int> word (letter, 1);   //préparation d'une paire pour la future insertion dans notre map
+      unordered_map<char, int>::iterator search = word_freq.find(letter);   // itérateur pour rechercher la lettre passé en paramètre
 
-      if( search == word_freq.end() )
+      if( search == word_freq.end() )   //si on atteint la fin du fichier sans trouver la lettre
       {
-        word_freq.insert(word);
-	  }
-      else
-      {
+        word_freq.insert(word);         //on l'insère dans la map
+		    chaine += letter;
+	    }
+      else                              //sinon on incémente son occurence
         search->second += 1;
-        //cout << search->first << " : " << search->second << endl;
-      }
-      //cout <<letter << " : " << word_freq[letter]<< endl;
     }
-    
-    word_freq[letter]-=1;
-    
-    sort(word_freq.begin(), word_freq.end);
+    word_freq[letter] -= 1;             //on fait ceci car la boucle semble tourner une dernière fois sur la dernière lettre
   }
   else
     throw runtime_error("ERROR : can't open file in reading mode");
 }
 
- 
+
 //MAIN
 int main(int argc, char * argv[])
 {
   unordered_map<char, int> freq;
   string filename = "test.txt";
-  
-  if ( doExists(filename) )
-    cerr << "Le fichier existe déjà ! \n";
-  else
-  {
-    createFile(filename);
-    writeFileData(filename, "anticonstitutionnellement");
-    DoWordFreq(filename, freq);
+  string chaine="";
+
+  try {
+    if ( doExists(filename) )
+      cerr << "Le fichier existe déjà ! \n";
+    else
+    {
+      createFile(filename);
+      writeFileData(filename, "anticonstitutionnellement");   //on écrit un mot dans un fichier texte
+      DoWordFreq(filename, freq, chaine);                     //remplissage de notre map
+    }
+
+    vector<Node*> nodeList (freq.size());     //vector de noeuds : on stocke leur références pour les retrouver plus facilement
+    Tree * Huff = new Tree();                 //nouvel arbre
+    char letter = ' ';                        //lettre du mot
+
+    for (size_t i=0 ; i < freq.size() ; i++)  //on parcours le mot
+    {
+    	letter = chaine[i];
+    	nodeList[i] = Huff->Tree::Create(letter, freq[letter]);  //création d'un noeud avec la ième lettre du mot et son occurence
+    	cout << "Liste de noeud : " <<  nodeList.at(i) <<endl;   //ce qui est affiché est une référence sur un noeud
+    }
   }
-  vector<Node*> nodeList (freq.size());
-  Tree * Huff = new Tree();
-  for (size_t i=0 ; i<freq.size() ; i++)
-  {
-	
-	  cout << freq.at(i)<<endl;
-	  /*nodeList[i]=Huff->Tree::Create(letter, freq[letter]);
-	  
-	  
-	  cout << "Liste de noeud : " <<  nodeList.at(i) <<endl;*/
+  catch(exception& e) {
+    cerr << e.what() << endl;
   }
-  
+
 
   return 0;
 }

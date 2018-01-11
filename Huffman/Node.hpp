@@ -9,7 +9,7 @@ using namespace std;
 
 class Node {
   private:
-    static int NbNode;                                 // Compter le nombre de noeuds instanciés
+    static int NbNode;                                            // Compter le nombre de noeuds instanciés
 
   public:
     Node() {NbNode++;}

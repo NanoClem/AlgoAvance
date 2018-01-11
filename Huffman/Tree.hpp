@@ -14,18 +14,18 @@ class Tree {
 		void Insert(Node *);
 		void Scan(Node *);
 		inline Node *Root() const {return root;}
-		//Node *Search(const int) const;
+		Node *Search(const char) const;
 
 	public:
 	    Tree();
 		~Tree();
 		Node* Create(const char, const int);
-		void Delete(const char );
+		void Delete(const char);
 		void Viewing();
 		inline void NbrNodes() {cout << Node::NbNode;}
 };
 
-Tree::Tree() 
+Tree::Tree()
 :root(nullptr)
 {
 	root= new Node();
@@ -63,9 +63,9 @@ Node* Tree::Create(const char val, const int freq)
 
 	pTmpNode->nodeValue = val;
 	pTmpNode->frequence = freq;
-	
+
 	return pTmpNode;
-	
+
 }
 
 /*Pour Insert il faut faire en sorte de la fequence du root soit égale à l'addition
@@ -89,8 +89,8 @@ void Tree::Insert(Node  *pNode)
 		previous->left = pNode;
 	else
 		previous->right = pNode;
-		
-	previous->frequence+=pNode->frequence;
+
+	previous->frequence += pNode->frequence;
 }
 
 /*void Tree::Delete(const char val)
@@ -139,7 +139,7 @@ void Tree::Insert(Node  *pNode)
 }
 
 
-Node *Tree::Search(const char val)const
+Node *Tree::Search(const char val) const
 {
 	Node *current = root;
 
