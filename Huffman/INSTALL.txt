@@ -1,0 +1,2 @@
+Pour fabriquer l'exécutable :
+se placer dans le dossier où se trouve le programme et saisir "make" dans la console
